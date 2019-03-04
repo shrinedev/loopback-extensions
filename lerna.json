@@ -1,7 +1,7 @@
 {
   "packages": [
-    "packages/*",
-    "examples/*"
+    "packages/**",
+    "examples/**"
   ],
   "version": "independent"
 }
