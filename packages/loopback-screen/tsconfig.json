@@ -1,0 +1,13 @@
+{
+  "extends": "./node_modules/@loopback/build/config/tsconfig.common.json",
+  "include": [
+    "src",
+    "test"
+  ],
+  "exclude": [
+    "node_modules/**",
+    "packages/*/node_modules/**",
+    "examples/*/node_modules/**",
+    "**/*.d.ts"
+  ]
+}
