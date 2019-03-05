@@ -31,7 +31,7 @@ export class UserController {
 
   // Map to `GET /me`
   @screenWith(KeycloakScreen)
-  @get('/me', {
+  @get('/auth/me', {
     responses: {
       '200': ME_RESPONSE,
     },
