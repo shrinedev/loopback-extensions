@@ -26,7 +26,6 @@ export class ScreenActionProvider
     return (context, request) => this.action(context, request);
   }
 
-
   static async getInstancesOfScreensFromMetadata(context: RequestContext, metadata: ScreenMetadata | undefined): Promise<any | undefined> {
     
     if (!metadata) return;

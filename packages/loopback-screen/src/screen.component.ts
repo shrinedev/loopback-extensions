@@ -16,12 +16,14 @@ export class ScreenComponent implements Component {
   classes?: ClassMap;
   bindings?: Binding[];
   
-  constructor(...screens: Class<Screen>[]) {
+  constructor() {
     this.providers = {
       [ScreenBindings.SCREEN_ACTION_PROVIDER.key]: ScreenActionProvider
     };
-    
-     this.bindings = screens.map(s => createBindingFromClass(s));
+  }
+
+  static createBindings(...screens: Class<Screen>[]): Binding[] {
+    return screens.map(s => createBindingFromClass(s));
   }
 }
 

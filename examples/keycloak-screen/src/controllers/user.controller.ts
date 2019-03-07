@@ -27,7 +27,7 @@ const ME_RESPONSE: ResponseObject = {
  */
 @screenAllWith(LogScreen)
 export class UserController {
-  constructor(@inject(KeycloakBindings.CURRENT_USER) private user: UserProfile) {}
+  constructor() {}
 
   // Map to `GET /me`
   @screenWith(KeycloakScreen)
@@ -36,12 +36,12 @@ export class UserController {
       '200': ME_RESPONSE,
     },
   })
-  me(): object {
+  me(@inject(KeycloakBindings.CURRENT_USER) user: UserProfile): object {
     // Reply with a current user authorized by Keycloak
     return {
-        email: this.user.email,
-        id: this.user.id,
-        name: this.user.name
+        email: user && user.email,
+        id: user && user.id,
+        name: user && user.name
     };
   }
 }

@@ -15,14 +15,15 @@ export class KeycloakScreen implements Screen {
   constructor(
     @inject.setter(KeycloakBindings.CURRENT_USER)
     readonly setCurrentUser: Setter<UserProfile>,
-    @inject(KeycloakBindings.KEYCLOAK_CLIENT_PROVIDER)
+    @inject(KeycloakBindings.KEYCLOAK_CLIENT)
     readonly keycloakClient: KeycloakClient
   ) { }
 
    async screen(context: RequestContext, request: Request) {
 
-    const user = await this.keycloakClient.guard(request, context.response).then(value => {
-        this.setCurrentUser(value);
+    const user = await this.keycloakClient.guard(request, context.response).then((user: UserProfile) => {
+      console.log("This is current user", user);
+      this.setCurrentUser(user);
     });
   }
 }

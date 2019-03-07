@@ -13,8 +13,8 @@ export namespace KeycloakBindings {
      * Key used to locate the provider of the 
      * function that will initiate the screening process
      */
-    export const KEYCLOAK_CLIENT_PROVIDER = BindingKey.create<KeycloakClient>(
-      'screen.keycloak.client.provider',
+    export const KEYCLOAK_CLIENT = BindingKey.create<KeycloakClient>(
+      'screen.keycloak.client',
     );
 
     export const CURRENT_USER = BindingKey.create<UserProfile>(
