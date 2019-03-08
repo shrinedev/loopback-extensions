@@ -15,10 +15,10 @@ import cookieSession = require('cookie-session');
 import { UserProfile } from './types';
 
 const cookieSessionOptions = {
-  secret: "sdgdwgewgewrrt12",
+  secret: "CHANGE_ME",
   name: 'keycloak',
   path: '/',
-  httpOnly: false,
+  httpOnly: true,
   secure: false,
   maxAge: 3600000
 };
@@ -90,6 +90,10 @@ export class KeycloakClient extends Keycloak {
 }
 
 
+const KEYCLOAK_COOKIE_ACCESS_TOKEN = 'keycloak_access_token';
+const KEYCLOAK_COOKIE_REFRESH_TOKEN = 'keycloak_refresh_token';
+const KEYCLOAK_COOKIE_ID_TOKEN = 'keycloak_id_token';
+
 class CookieSessionStore {
 
     get(request: Request) {
@@ -100,8 +104,15 @@ class CookieSessionStore {
             return undefined;
         }
 
-        const { keycloak_access_token: access_token, keycloak_refresh_token: refresh_token, keycloak_id_token: id_token } = cookies;
-        const result = { access_token, refresh_token, id_token };
+        console.log('This is the session', request.session);
+
+        // The keycloak connect raw representation of Grant
+        // Requires fields be named appropriately.
+        const result = { 
+            access_token: cookies[KEYCLOAK_COOKIE_ACCESS_TOKEN], 
+            refresh_token: cookies[KEYCLOAK_COOKIE_REFRESH_TOKEN], 
+            id_token: cookies[KEYCLOAK_COOKIE_ID_TOKEN]  
+        };
       
         return result;
 
@@ -109,6 +120,8 @@ class CookieSessionStore {
 
     static store(grant: Keycloak.Grant) {
         return (request: Request, response: Response) => {
+            if (!request.session) { throw Error("Request needs a session"); }
+
             const rawGrant = JSON.parse(grant.__raw);
 
             let options = {
@@ -117,9 +130,15 @@ class CookieSessionStore {
                 signed: false // Indicates if the cookie should be signed
             }
             
-            response.cookie('keycloak_access_token', rawGrant.access_token, options);
-            response.cookie('keycloak_refresh_token', rawGrant.refresh_token, options);
-            response.cookie('keycloak_id_token', rawGrant.id_token, options);
+            response.cookie(KEYCLOAK_COOKIE_ACCESS_TOKEN, rawGrant.access_token, options);
+            response.cookie(KEYCLOAK_COOKIE_REFRESH_TOKEN, rawGrant.refresh_token, options);
+            response.cookie(KEYCLOAK_COOKIE_ID_TOKEN, rawGrant.id_token, options);
+
+            
+            request.session.access_token = rawGrant.access_token;
+            request.session.refresh_token = rawGrant.refresh_token;
+            request.session.id_token = rawGrant.id_token;
+            request.session.save();
         }
     }
 
