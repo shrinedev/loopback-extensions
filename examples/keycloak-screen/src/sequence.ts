@@ -40,7 +40,7 @@ export class MySequence implements SequenceHandler {
 
       // !!IMPORTANT: screens fail on static routes!
       if (!(route instanceof StaticAssetsRoute)) {
-        const screen = await this.screen(context, request);
+        await this.screen(context, request);
       }
 
       if (response.headersSent) {

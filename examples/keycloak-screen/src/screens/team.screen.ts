@@ -4,12 +4,9 @@
 // License text available at https://opensource.org/licenses/MIT
 
 import {Request, RequestContext, HttpErrors} from '@loopback/rest';
-import {inject, Setter, BindingKey, Getter} from '@loopback/core';
+import {inject, Setter, BindingKey} from '@loopback/core';
 import {Screen} from '@shrinedev/loopback-screen';
-import {
-  KeycloakBindings,
-  UserProfile,
-} from '@shrinedev/loopback-screen-keycloak';
+import {KeycloakBindings} from '@shrinedev/loopback-screen-keycloak';
 import {ROUTE_BINDING} from '../sequence';
 
 export class TeamProfile {

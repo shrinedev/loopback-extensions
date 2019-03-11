@@ -1,10 +1,6 @@
 import {get, ResponseObject} from '@loopback/rest';
 import {inject} from '@loopback/context';
-import {
-  KeycloakScreen,
-  KeycloakBindings,
-  UserProfile,
-} from '@shrinedev/loopback-screen-keycloak';
+import {KeycloakScreen} from '@shrinedev/loopback-screen-keycloak';
 import {screenWith} from '@shrinedev/loopback-screen';
 import {TeamScreen, CURRENT_TEAM, TeamProfile} from '../screens/team.screen';
 
