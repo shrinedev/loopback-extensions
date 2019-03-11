@@ -1,6 +1,6 @@
 {
   "name": "example-loopback-keycloak",
-  "version": "1.0.0",
+  "version": "0.0.1",
   "description": "Example Loopback App that implements Keycloak Screen",
   "keywords": [
     "loopback-application",
