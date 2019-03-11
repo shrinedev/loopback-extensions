@@ -1,6 +1,6 @@
 {
   "name": "@shrinedev/loopback-screen-keycloak",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Keycloak LoopBack Controller Screen. ",
   "keywords": [
     "keycloak",
@@ -33,8 +33,8 @@
   },
   "dependencies": {
     "@loopback/rest": "^1.7.0",
-    "@shrinedev/loopback-screen": "0.0.1",
-    "@shrinedev/middleware-runner": "0.0.1",
+    "@shrinedev/loopback-screen": "^0.0.2",
+    "@shrinedev/middleware-runner": "^0.0.2",
     "cookie-session": "^1.3.3",
     "keycloak-connect": "4.8.3"
   },

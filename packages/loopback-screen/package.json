@@ -1,6 +1,6 @@
 {
   "name": "@shrinedev/loopback-screen",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "A LoopBack component for filtering incoming http requests",
   "engines": {
     "node": ">=8.9"

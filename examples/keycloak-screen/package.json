@@ -1,6 +1,6 @@
 {
   "name": "example-loopback-keycloak",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Example Loopback App that implements Keycloak Screen",
   "keywords": [
     "loopback-application",
@@ -55,8 +55,8 @@
     "@loopback/rest": "^1.6.0",
     "@loopback/rest-explorer": "^1.1.9",
     "@loopback/service-proxy": "^1.0.9",
-    "@shrinedev/loopback-screen": "0.0.1",
-    "@shrinedev/loopback-screen-keycloak": "0.0.1"
+    "@shrinedev/loopback-screen": "^0.0.2",
+    "@shrinedev/loopback-screen-keycloak": "^0.0.2"
   },
   "devDependencies": {
     "@loopback/build": "^1.3.1",
