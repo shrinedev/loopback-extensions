@@ -1,4 +1,4 @@
-import {inject} from '@loopback/context';
+import {inject, BindingKey} from '@loopback/context';
 import {
   FindRoute,
   InvokeMethod,
@@ -9,10 +9,16 @@ import {
   Send,
   SequenceHandler,
   StaticAssetsRoute,
+  ResolvedRoute,
 } from '@loopback/rest';
+
 import { ScreenBindings, ScreenRequestFn } from '@shrinedev/loopback-screen';
 
 const SequenceActions = RestBindings.SequenceActions;
+
+export const ROUTE_BINDING = BindingKey.create<ResolvedRoute>(
+  'core.route',
+);
 
 export class MySequence implements SequenceHandler {
   constructor(
@@ -29,6 +35,9 @@ export class MySequence implements SequenceHandler {
       const {request, response} = context;
       const route = this.findRoute(request);
       const args = await this.parseParams(request, route);
+
+      // Store route in context
+      context.bind(ROUTE_BINDING).to(route);
 
       // !!IMPORTANT: screens fail on static routes!
       if (!(route instanceof StaticAssetsRoute)) {
