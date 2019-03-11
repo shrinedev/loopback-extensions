@@ -11,6 +11,7 @@ import * as path from 'path';
 import {MySequence} from './sequence';
 import { ScreenComponent, LogScreen } from '@shrinedev/loopback-screen';
 import { KeycloakScreen, KeycloakClient, KeycloakBindings } from '@shrinedev/loopback-screen-keycloak';
+import { TeamScreen } from './screens/team.screen';
 
 const exportedKeycloakClientConfig = {
   "realm": "master",
@@ -46,7 +47,7 @@ export class ShrineApplication extends BootMixin(
     
     this.component(ScreenComponent);
 
-    ScreenComponent.createBindings(KeycloakScreen, LogScreen).forEach(binding => this.add(binding));
+    ScreenComponent.createBindings(KeycloakScreen, LogScreen, TeamScreen).forEach(binding => this.add(binding));
   
     // For Keycloak Screen we need provide an instance of the client
 

@@ -8,7 +8,7 @@
         {
             "type": "node",
             "request": "launch",
-            "name": "Launch Screen Example",
+            "name": "Launch Keycloak Example",
             "program": "${workspaceFolder}/examples/keycloak-screen/index.js",
             "outFiles": [
                 "${workspaceFolder}/examples/keycloak-screen/**/*.js"

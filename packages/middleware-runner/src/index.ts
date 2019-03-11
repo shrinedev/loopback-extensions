@@ -9,7 +9,7 @@ const Q = require('q');
 export class MiddlewareRunner {
     middlewares: Array<RequestHandler>;
 
-    constructor(middlewares: [RequestHandler]) { 
+    constructor(middlewares: Array<RequestHandler>) { 
         this.middlewares = middlewares;
     }
 

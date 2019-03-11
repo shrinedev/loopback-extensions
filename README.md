@@ -3,7 +3,7 @@
 Packages and components for Loopback 4.
 
 
-** Warning: Alpha Software **
+**Warning: Alpha Software**
 
 ### LoopBack and Keycloak
 
@@ -31,4 +31,4 @@ In a second shell install the required npm dependencies and start the LoopBack s
 
 #### Recommended Editor
 
-We recommend you use Microsoft Visual Code for this and other TypeScript projects. The .vscode folder for this project is intentionally committed to make development and testing easier. 
+We recommend [Microsoft Visual Code](https://code.visualstudio.com/) for editing. The .vscode folder for this project is intentionally committed to make development and testing easier. 

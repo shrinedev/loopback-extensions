@@ -18,13 +18,12 @@ import { SCREEN_METADATA_KEY } from '../keys';
    * @param screenClass A class that implements Screen Interface.
    * @param methodName Target method
    */
-  export function screenWith<T extends Screen>(screenClass: new (...args: any[]) => T, options = {}) {
-  
+  export function screenWith<T extends Screen>(...screens: Array<Constructor<Screen>>) {
+
     return MethodDecoratorFactory.createDecorator<ScreenMetadata>(
       SCREEN_METADATA_KEY,
       {
-        screens: [screenClass],
-        options: options,
+        screens
       },
     );
   }

@@ -67,6 +67,18 @@ export class ScreenActionProvider
     screens = await Promise.all([].concat(classScreens, methodScreens));
 
     // Once we have instances of each of the screens we can run and await the executions
-    return screens && Promise.all(screens.map(screen => screen && screen.screen(context, request)));
+    // return screens && Promise.all(screens.map(screen => screen && screen.screen(context, request)));
+    console.log("screens here", screens);
+
+    await runScreens(screens, context, request);
   }
 }
+
+async function runScreens(screens: Array<Screen>, context: RequestContext, request: Request) {
+  for(const screen of screens) {
+    if (!screen) continue;
+    
+    console.log("running screen", screen);
+    await screen.screen(context, request);
+  }
+};

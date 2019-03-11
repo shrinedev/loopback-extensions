@@ -18,7 +18,7 @@ export namespace KeycloakBindings {
     );
 
     export const CURRENT_USER = BindingKey.create<UserProfile>(
-      'screen.keycloak.client.provider',
+      'screen.keycloak.client.current_user',
     );
   }
   

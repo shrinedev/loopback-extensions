@@ -27,6 +27,6 @@ export interface ScreenMetadata {
  * A Request Screen
  */
 export interface Screen {
-  screen(context: RequestContext, request: Request): Promise<any | undefined>;
+  screen(context: RequestContext, request: Request): Promise<any>;
 }
 

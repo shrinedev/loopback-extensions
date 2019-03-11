@@ -13,21 +13,17 @@ import { Screen, ScreenMetadata } from "../types";
 import { SCREEN_CLASS_METADATA_KEY } from "../keys";
 import { Class } from '@loopback/repository';
 
-
   /**
    * Set Screen metadata on a class
    *
-   * @param screenCtor A class that implement Screen Interface.
+   * @param screens Classes that implement Screen Interface.
    */
-  export function screenAllWith(screenCtor: Constructor<Screen>, options?: Object): any {
-  
-    // console.log("Adding Class screen --", this, screenCtor.name);
-  
+  export function screenAllWith(...screens: Array<Constructor<Screen>>): any {
+    
     return ScreenWithClassDecoratorFactory.createDecorator<ScreenMetadata>(
       SCREEN_CLASS_METADATA_KEY,
       {
-        screens: [screenCtor],
-        options: options || {},
+        screens
       },
     );
   }

@@ -15,7 +15,13 @@ const ME_RESPONSE: ResponseObject = {
         properties: {
           email: {type: 'string'},
           username: {type: 'string'},
-          id: {type: 'string'}
+          id: {type: 'string'},
+          teams: {
+            type: 'array',
+            items: {
+              type: 'string'
+            }
+          }
         },
       },
     },
@@ -30,7 +36,7 @@ export class UserController {
   constructor() {}
 
   // Map to `GET /me`
-  @screenWith(KeycloakScreen)
+  @screenWith(KeycloakScreen, LogScreen)
   @get('/auth/me', {
     responses: {
       '200': ME_RESPONSE,
@@ -41,7 +47,9 @@ export class UserController {
     return {
         email: user && user.email,
         id: user && user.id,
-        name: user && user.name
+        name: user && user.name,
+        teams: user && user.teams
     };
   }
+
 }

@@ -19,9 +19,9 @@ export class KeycloakScreen implements Screen {
     readonly keycloakClient: KeycloakClient
   ) { }
 
-   async screen(context: RequestContext, request: Request) {
+   async screen(context: RequestContext, request: Request): Promise<any> {
 
-    const user = await this.keycloakClient.guard(request, context.response).then((user: UserProfile) => {
+    return this.keycloakClient.guard(request, context.response).then((user: UserProfile) => {
       console.log("This is current user", user);
       this.setCurrentUser(user);
     });
