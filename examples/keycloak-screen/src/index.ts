@@ -4,9 +4,8 @@ import {ApplicationConfig} from '@loopback/core';
 export {ShrineApplication};
 
 export async function main(options: ApplicationConfig = {}) {
-
   options.rest = {
-    host: 'localhost'
+    host: 'localhost',
   };
 
   const app = new ShrineApplication(options);

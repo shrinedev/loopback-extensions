@@ -9,22 +9,25 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import * as path from 'path';
 import {MySequence} from './sequence';
-import { ScreenComponent, LogScreen } from '@shrinedev/loopback-screen';
-import { KeycloakScreen, KeycloakClient, KeycloakBindings } from '@shrinedev/loopback-screen-keycloak';
-import { TeamScreen } from './screens/team.screen';
+import {ScreenComponent, LogScreen} from '@shrinedev/loopback-screen';
+import {
+  KeycloakScreen,
+  KeycloakClient,
+  KeycloakBindings,
+} from '@shrinedev/loopback-screen-keycloak';
+import {TeamScreen} from './screens/team.screen';
 
 const exportedKeycloakClientConfig = {
-  "realm": "master",
-  "auth-server-url": "http://127.0.0.1:8081/auth",
-  "ssl-required": "external",
-  "resource": "account",
-  "credentials": {
-      "secret": "c83ef58c-6b77-4e45-98ef-8b6d3bcfc22b"
+  realm: 'master',
+  'auth-server-url': 'http://127.0.0.1:8081/auth',
+  'ssl-required': 'external',
+  resource: 'account',
+  credentials: {
+    secret: 'c83ef58c-6b77-4e45-98ef-8b6d3bcfc22b',
   },
-  "use-resource-role-mappings": true,
-  "confidential-port": 0
+  'use-resource-role-mappings': true,
+  'confidential-port': 0,
 };
-
 
 export class ShrineApplication extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
@@ -42,13 +45,17 @@ export class ShrineApplication extends BootMixin(
     this.bind(RestExplorerBindings.CONFIG).to({
       path: '/explorer',
     });
-    
+
     this.component(RestExplorerComponent);
-    
+
     this.component(ScreenComponent);
 
-    ScreenComponent.createBindings(KeycloakScreen, LogScreen, TeamScreen).forEach(binding => this.add(binding));
-  
+    ScreenComponent.createBindings(
+      KeycloakScreen,
+      LogScreen,
+      TeamScreen,
+    ).forEach(binding => this.add(binding));
+
     // For Keycloak Screen we need provide an instance of the client
 
     const keycloakClient = new KeycloakClient(exportedKeycloakClientConfig);

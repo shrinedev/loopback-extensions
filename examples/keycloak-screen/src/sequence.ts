@@ -12,13 +12,11 @@ import {
   ResolvedRoute,
 } from '@loopback/rest';
 
-import { ScreenBindings, ScreenRequestFn } from '@shrinedev/loopback-screen';
+import {ScreenBindings, ScreenRequestFn} from '@shrinedev/loopback-screen';
 
 const SequenceActions = RestBindings.SequenceActions;
 
-export const ROUTE_BINDING = BindingKey.create<ResolvedRoute>(
-  'core.route',
-);
+export const ROUTE_BINDING = BindingKey.create<ResolvedRoute>('core.route');
 
 export class MySequence implements SequenceHandler {
   constructor(
@@ -27,7 +25,8 @@ export class MySequence implements SequenceHandler {
     @inject(SequenceActions.INVOKE_METHOD) protected invoke: InvokeMethod,
     @inject(SequenceActions.SEND) public send: Send,
     @inject(SequenceActions.REJECT) public reject: Reject,
-    @inject(ScreenBindings.SCREEN_ACTION_PROVIDER) public screen: ScreenRequestFn,
+    @inject(ScreenBindings.SCREEN_ACTION_PROVIDER)
+    public screen: ScreenRequestFn,
   ) {}
 
   async handle(context: RequestContext) {
@@ -45,7 +44,7 @@ export class MySequence implements SequenceHandler {
       }
 
       if (response.headersSent) {
-        console.log("Headers are already sent!");
+        console.log('Headers are already sent!');
         return;
       }
 

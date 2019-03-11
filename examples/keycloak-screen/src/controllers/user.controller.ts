@@ -1,7 +1,11 @@
-import { get, ResponseObject} from '@loopback/rest';
+import {get, ResponseObject} from '@loopback/rest';
 import {inject} from '@loopback/context';
-import { KeycloakScreen, KeycloakBindings, UserProfile  } from '@shrinedev/loopback-screen-keycloak';
-import { LogScreen, screenWith, screenAllWith } from '@shrinedev/loopback-screen';
+import {
+  KeycloakScreen,
+  KeycloakBindings,
+  UserProfile,
+} from '@shrinedev/loopback-screen-keycloak';
+import {LogScreen, screenWith, screenAllWith} from '@shrinedev/loopback-screen';
 
 /**
  * OpenAPI response for me()
@@ -19,9 +23,9 @@ const ME_RESPONSE: ResponseObject = {
           teams: {
             type: 'array',
             items: {
-              type: 'string'
-            }
-          }
+              type: 'string',
+            },
+          },
         },
       },
     },
@@ -45,11 +49,10 @@ export class UserController {
   me(@inject(KeycloakBindings.CURRENT_USER) user: UserProfile): object {
     // Reply with a current user authorized by Keycloak
     return {
-        email: user && user.email,
-        id: user && user.id,
-        name: user && user.name,
-        teams: user && user.teams
+      email: user && user.email,
+      id: user && user.id,
+      name: user && user.name,
+      teams: user && user.teams,
     };
   }
-
 }

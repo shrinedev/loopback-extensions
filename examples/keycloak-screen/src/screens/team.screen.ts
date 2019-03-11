@@ -3,56 +3,61 @@
 // This file is licensed under the MIT License.
 // License text available at https://opensource.org/licenses/MIT
 
-import { Request, RequestContext, HttpErrors } from '@loopback/rest';
-import { inject, Setter, BindingKey, Getter } from "@loopback/core";
-import { Screen } from '@shrinedev/loopback-screen';
-import { KeycloakBindings, UserProfile } from '@shrinedev/loopback-screen-keycloak';
-import { ROUTE_BINDING } from '../sequence';
+import {Request, RequestContext, HttpErrors} from '@loopback/rest';
+import {inject, Setter, BindingKey, Getter} from '@loopback/core';
+import {Screen} from '@shrinedev/loopback-screen';
+import {
+  KeycloakBindings,
+  UserProfile,
+} from '@shrinedev/loopback-screen-keycloak';
+import {ROUTE_BINDING} from '../sequence';
 
 export class TeamProfile {
-    name: string;
+  name: string;
 }
 
 export const CURRENT_TEAM = BindingKey.create<TeamProfile>(
-    'screen.team.current',
+  'screen.team.current',
 );
 
 export class TeamScreen implements Screen {
+  constructor(
+    @inject.setter(CURRENT_TEAM)
+    readonly setCurrentTeam: Setter<TeamProfile>,
+  ) {}
 
-    constructor(
-        @inject.setter(CURRENT_TEAM)
-        readonly setCurrentTeam: Setter<TeamProfile>
-    ) { }
-   
-    async screen(context: RequestContext, request: Request): Promise<TeamProfile> {
+  async screen(
+    context: RequestContext,
+    request: Request,
+  ): Promise<TeamProfile> {
+    const user = context.getSync(KeycloakBindings.CURRENT_USER);
 
-        const user = context.getSync(KeycloakBindings.CURRENT_USER);
-    
-        return new Promise<TeamProfile>(async (resolve, reject) => {
-            // Get User teams
-            const teams = user.teams;
-            const route = context.getSync(ROUTE_BINDING);
-            const teamName = route.pathParams.id;
+    return new Promise<TeamProfile>(async (resolve, reject) => {
+      // Get User teams
+      const teams = user.teams;
+      const route = context.getSync(ROUTE_BINDING);
+      const teamName = route.pathParams.id;
 
+      console.log('teams and team name', user, teams, teamName);
 
-            console.log("teams and team name", user, teams, teamName);
+      if (!teams) {
+        throw Error('User has no teams');
+      }
 
-            if (!teams) {
-                throw Error("User has no teams");
-            }
+      // Determine team id based off path
+      const team = {name: teamName};
 
-            // Determine team id based off path
-            const team = { name: teamName };
+      // See if authorized
+      if (!teams.find(t => t === team.name)) {
+        // reject("User not authorized to access this team");
+        reject(
+          new HttpErrors.Forbidden('User not authorized to access this team'),
+        );
+      }
 
-            // See if authorized
-            if (!teams.find(t => t === team.name)) {
-               // reject("User not authorized to access this team");
-                reject(new HttpErrors.Forbidden("User not authorized to access this team"));
-            }
+      this.setCurrentTeam(team);
 
-            this.setCurrentTeam(team);
-
-            resolve(team);
-        });
-    }
+      resolve(team);
+    });
+  }
 }
