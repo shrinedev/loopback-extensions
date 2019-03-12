@@ -14,26 +14,28 @@ import { CookieSessionStore } from './cookie-session-store';
  * that is designed to use cookies to store grants
  */
 
-export class KeycloakClient extends Keycloak {
-    stores: Array<any>;
+export class KeycloakClient {
+    keycloak: Keycloak;
 
     constructor(keycloakConfig: KeycloakClientConfig) {
-        super({}, keycloakConfig);
+        
+        this.keycloak = new Keycloak({}, keycloakConfig);
 
         // KeycloakConnect's built-in Session Store is not compatible with a fully
         // Cookie-based session. Addtionally, the KeycloakConnect Constructor takes any stores
         // provided and wraps them in another store. We avoid this by assigning to the stores directly.
-        this.stores.push(new CookieSessionStore());
+        // @ts-ignore
+        this.keycloak.stores.push(new CookieSessionStore());
     }
 
     middlewares(): Array<RequestHandler> {
-        return super.middleware() as unknown as Array<RequestHandler>;
+        return this.keycloak.middleware() as unknown as Array<RequestHandler>;
     }
 
     async guard(request: Request, response: Response): Promise<any | undefined> {
 
         // Prepare KeycloakConnect's protect middleware
-        const protect = super.protect();
+        const protect = this.keycloak.protect();
 
         const getUser = (request: Keycloak.GrantedRequest, response: Response, next: any) => {
             let user: UserProfile;
