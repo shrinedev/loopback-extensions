@@ -1,6 +1,6 @@
 {
   "name": "@shrinedev/loopback-keycloak-demo-app",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "Example Loopback App that integrates with Keycloak.",
   "keywords": [
     "loopback-application",
