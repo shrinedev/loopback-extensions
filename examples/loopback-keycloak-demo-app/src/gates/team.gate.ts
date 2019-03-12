@@ -13,9 +13,7 @@ export class TeamProfile {
   name: string;
 }
 
-export const CURRENT_TEAM = BindingKey.create<TeamProfile>(
-  'gate.team.current',
-);
+export const CURRENT_TEAM = BindingKey.create<TeamProfile>('gate.team.current');
 
 export class TeamGate implements Gate {
   constructor(
@@ -23,10 +21,7 @@ export class TeamGate implements Gate {
     readonly setCurrentTeam: Setter<TeamProfile>,
   ) {}
 
-  async gate(
-    context: RequestContext,
-    request: Request,
-  ): Promise<TeamProfile> {
+  async gate(context: RequestContext, request: Request): Promise<TeamProfile> {
     const user = context.getSync(KeycloakBindings.CURRENT_USER);
 
     return new Promise<TeamProfile>(async (resolve, reject) => {

@@ -50,11 +50,9 @@ export class ShrineApplication extends BootMixin(
 
     this.component(GateComponent);
 
-    GateComponent.createBindings(
-      KeycloakGate,
-      LogGate,
-      TeamGate,
-    ).forEach(binding => this.add(binding));
+    GateComponent.createBindings(KeycloakGate, LogGate, TeamGate).forEach(
+      binding => this.add(binding),
+    );
 
     // For Keycloak Gate we need provide an instance of the client
 
