@@ -69,17 +69,17 @@ export class GateActionProvider
     // Once we have instances of each of the gates we can run and await the executions
     // return gates && Promise.all(gates.map(gate => gate && gate.gate(context, request)));
     console.log("gates here", gates);
-    await gates.reduce((promise, gate) => promise.then(() => gate.gate(context, request)), Promise.resolve());
+    await gates.filter(g => g).reduce((promise, gate) => promise.then(() => gate.gate(context, request)), Promise.resolve());
 
    // await runGates(gates, context, request);
   }
 }
 
-async function runGates(gates: Array<Gate>, context: RequestContext, request: Request) {
-  for(const gate of gates) {
-    if (!gate) continue;
+// async function runGates(gates: Array<Gate>, context: RequestContext, request: Request) {
+//   for(const gate of gates) {
+//     if (!gate) continue;
 
-    console.log("running gate", gate);
-    await gate.gate(context, request);
-  }
-};
+//     console.log("running gate", gate);
+//     await gate.gate(context, request);
+//   }
+// };

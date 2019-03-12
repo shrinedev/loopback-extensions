@@ -25,7 +25,7 @@ export class MySequence implements SequenceHandler {
     @inject(SequenceActions.INVOKE_METHOD) protected invoke: InvokeMethod,
     @inject(SequenceActions.SEND) public send: Send,
     @inject(SequenceActions.REJECT) public reject: Reject,
-    @inject(GateBindings.SCREEN_ACTION_PROVIDER)
+    @inject(GateBindings.GATE_ACTION_PROVIDER)
     public gate: GateRequestFn,
   ) {}
 
