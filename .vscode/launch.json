@@ -9,9 +9,9 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Keycloak Example",
-            "program": "${workspaceFolder}/examples/keycloak-screen/index.js",
+            "program": "${workspaceFolder}/examples/keycloak-gate/index.js",
             "outFiles": [
-                "${workspaceFolder}/examples/keycloak-screen/**/*.js"
+                "${workspaceFolder}/examples/keycloak-gate/**/*.js"
             ]
         }
     ]
