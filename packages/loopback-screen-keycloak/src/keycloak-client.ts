@@ -41,8 +41,8 @@ export class KeycloakClient extends Keycloak {
             const grant = request.kauth.grant;
             
             if (grant) {
-                const idToken: KeycloakIdTokenContent = grant.id_token.content as KeycloakIdTokenContent;
-                user = { id: idToken.sub, email: idToken.email, name: `${idToken.given_name} ${idToken.family_name}`, teams: idToken.groups };
+                const tokenContent: KeycloakIdTokenContent = grant.access_token.content as KeycloakIdTokenContent;
+                user = { id: tokenContent.sub, email: tokenContent.email, name: `${tokenContent.given_name} ${tokenContent.family_name}`, teams: tokenContent.groups };
             } else {
                 throw Error("No Grant Provided");
             }
