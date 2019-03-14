@@ -36,9 +36,7 @@ import { Class } from '@loopback/repository';
   export function getGateClassMetadata(
     controllerClass: Constructor<{}>,
   ): GateMetadata | undefined {
-  
-    // console.log("Getting Cgate class data for")
-  
+    
     return MetadataInspector.getClassMetadata<GateMetadata>(
       GATE_CLASS_METADATA_KEY,
       controllerClass,

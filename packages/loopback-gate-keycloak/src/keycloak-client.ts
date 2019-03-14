@@ -6,19 +6,19 @@
 import { RequestHandler, Request, Response } from 'express';
 import { KeycloakClientConfig } from './keycloak-client-config';
 import { MiddlewareRunner } from '@shrinedev/middleware-runner';
-import { UserProfile, Keycloak, KeycloakIdTokenContent } from './types';
+import { UserProfile, Keycloak, KeycloakExtendedTokenContent } from './types';
 import { CookieSessionStore } from './cookie-session-store';
 
 /**
- * Keycloak Client is a modified version of the keycloak Connect package
- * that is designed to use cookies to store grants
+ * Keycloak Client wraps the Keycloak Connect package
+ * that is designed to use cookies to store grants. It uses the 
+ * Keycloak connect middleware but runs its in per request manner.
  */
-
 export class KeycloakClient {
     keycloak: Keycloak;
 
     constructor(keycloakConfig: KeycloakClientConfig) {
-        
+
         this.keycloak = new Keycloak({}, keycloakConfig);
 
         // KeycloakConnect's built-in Session Store is not compatible with a fully
@@ -32,31 +32,31 @@ export class KeycloakClient {
         return this.keycloak.middleware() as unknown as Array<RequestHandler>;
     }
 
-    async guard(request: Request, response: Response): Promise<any | undefined> {
+    static getUser(request: Keycloak.GrantedRequest, response: Response, next: any) {
+        const access_token = request.kauth.grant && request.kauth.grant.access_token;
+        if (!access_token) { throw Error(`No access token provided in grant. Grant:" ${JSON.stringify(request.kauth.grant)}`); }
 
+        const tokenContent: KeycloakExtendedTokenContent = access_token.content as KeycloakExtendedTokenContent;
+        if (!tokenContent) { throw Error(`No content provided in access token. Access token:" ${JSON.stringify(access_token)}`); }
+
+        const user: UserProfile = {
+            id: tokenContent.sub,
+            email: tokenContent.email,
+            name: `${tokenContent.given_name} ${tokenContent.family_name}`,
+            teams: tokenContent.groups // Requires Keycloak server configured to provide groups via Group Membership Mapper
+        };
+
+        return next(null, user);
+    }
+
+    async guard(request: Request, response: Response): Promise<any | undefined> {
         // Prepare KeycloakConnect's protect middleware
         const protect = this.keycloak.protect();
 
-        const getUser = (request: Keycloak.GrantedRequest, response: Response, next: any) => {
-            let user: UserProfile;
-
-            const grant = request.kauth.grant;
-            
-            if (grant) {
-                const tokenContent: KeycloakIdTokenContent = grant.access_token.content as KeycloakIdTokenContent;
-                user = { id: tokenContent.sub, email: tokenContent.email, name: `${tokenContent.given_name} ${tokenContent.family_name}`, teams: tokenContent.groups };
-            } else {
-                throw Error("No Grant Provided");
-            }
-            
-            return next(null, user);
-        }
-        
         const middlewareRunner = new MiddlewareRunner(
-            CookieSessionStore.middleware.concat(this.middlewares(), protect, getUser)
+            CookieSessionStore.middleware.concat(this.middlewares(), protect, KeycloakClient.getUser)
         );
 
-        const result = middlewareRunner.run(request, response);
-        return result;
+        return middlewareRunner.run(request, response);
     }
 }

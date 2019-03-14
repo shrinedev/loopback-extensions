@@ -43,11 +43,6 @@ export class MySequence implements SequenceHandler {
         await this.gate(context, request);
       }
 
-      if (response.headersSent) {
-        console.log('Headers are already sent!');
-        return;
-      }
-
       const result = await this.invoke(route, args);
       this.send(response, result);
     } catch (err) {

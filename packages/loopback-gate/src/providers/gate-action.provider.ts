@@ -27,11 +27,9 @@ export class GateActionProvider
   }
 
   static async getInstancesOfGatesFromMetadata(context: RequestContext, metadata: GateMetadata | undefined): Promise<any | undefined> {
-    
     if (!metadata) return;
 
     const gateKlasses = metadata.gates;
-
     if (!gateKlasses) return;
 
     // We are expecting an of Gates
@@ -45,10 +43,6 @@ export class GateActionProvider
     *  through all of the gates.
   */
   async action(context: RequestContext, request: Request) {
-    
-    // Array of gates to populate
-    let gates: Gate[];
-
     // Get details of current controller class and method
     let controllerClass = await this.getControllerClass();
     let methodName = await this.getMethodName();
@@ -61,25 +55,14 @@ export class GateActionProvider
     const methodGatesMetadata = getGateMethodMetadata(controllerClass, methodName);
     const methodGates = await GateActionProvider.getInstancesOfGatesFromMetadata(context, methodGatesMetadata);
 
+    // Array of gates to populate.
     // We have class constructors of the desired gates at this point.
     // We do not have the instances that we need.
     // First we evaluate all the constructors and get instances
-    gates = await Promise.all([].concat(classGates, methodGates));
+    const gates:Array<Gate> = await Promise.all([].concat(classGates, methodGates));
 
     // Once we have instances of each of the gates we can run and await the executions
     // return gates && Promise.all(gates.map(gate => gate && gate.gate(context, request)));
-    console.log("gates here", gates);
     await gates.filter(g => g).reduce((promise, gate) => promise.then(() => gate.gate(context, request)), Promise.resolve());
-
-   // await runGates(gates, context, request);
   }
 }
-
-// async function runGates(gates: Array<Gate>, context: RequestContext, request: Request) {
-//   for(const gate of gates) {
-//     if (!gate) continue;
-
-//     console.log("running gate", gate);
-//     await gate.gate(context, request);
-//   }
-// };

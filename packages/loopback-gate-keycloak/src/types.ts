@@ -17,7 +17,7 @@ export interface UserProfile {
     teams?: Array<string>;
   }
 
-export class KeycloakIdTokenContent implements Keycloak.TokenContent {
+export class KeycloakExtendedTokenContent implements Keycloak.TokenContent {
   exp: number;
   resource_access?: any;
   realm_access?: { roles?: string[] | undefined; } | undefined;
@@ -26,7 +26,7 @@ export class KeycloakIdTokenContent implements Keycloak.TokenContent {
   sub: string;
   family_name: string;
   given_name: string;
-    groups: any;
+  groups: any;
 }
 
 export { Keycloak }

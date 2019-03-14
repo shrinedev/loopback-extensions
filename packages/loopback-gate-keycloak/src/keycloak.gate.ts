@@ -22,7 +22,6 @@ export class KeycloakGate implements Gate {
    async gate(context: RequestContext, request: Request): Promise<any> {
 
     return this.keycloakClient.guard(request, context.response).then((user: UserProfile) => {
-      console.log("This is current user", user);
       this.setCurrentUser(user);
     });
   }

@@ -25,7 +25,7 @@ export class TeamGate implements Gate {
     const user = context.getSync(KeycloakBindings.CURRENT_USER);
 
     return new Promise<TeamProfile>(async (resolve, reject) => {
-      // Get User teams
+      // Get user's teams and see if the one included in path is in the list
       const teams = user.teams;
       const route = context.getSync(ROUTE_BINDING);
       const teamName = route.pathParams.id;
@@ -33,7 +33,7 @@ export class TeamGate implements Gate {
       console.log('teams and team name', user, teams, teamName);
 
       if (!teams) {
-        throw Error('User has no teams');
+        return reject(new HttpErrors.Forbidden('User has no teams'));
       }
 
       // Determine team id based off path
@@ -41,15 +41,12 @@ export class TeamGate implements Gate {
 
       // See if authorized
       if (!teams.find(t => t === team.name)) {
-        // reject("User not authorized to access this team");
-        reject(
-          new HttpErrors.Forbidden('User not authorized to access this team'),
-        );
+        return reject(new HttpErrors.Forbidden('User not authorized to access this team'));
       }
 
       this.setCurrentTeam(team);
 
-      resolve(team);
+      return resolve(team);
     });
   }
 }
