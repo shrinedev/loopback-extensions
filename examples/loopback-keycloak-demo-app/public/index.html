@@ -15,7 +15,8 @@
       text-align: center;
     }
 
-    a, a:visited {
+    a,
+    a:visited {
       color: #3f5dff;
     }
 
@@ -23,7 +24,9 @@
       margin-left: 10px;
     }
 
-    a:hover, a:focus, a:active {
+    a:hover,
+    a:focus,
+    a:active {
       color: #001956;
     }
 
@@ -51,19 +54,47 @@
       margin-bottom: 3em;
       margin-top: 1em;
     }
+
+    section {
+      margin-top: 35px;
+    }
+
   </style>
 </head>
 
 <body>
   <div class="info">
-    <h1>example-loopback-keycloak</h1>
-    <p>Version 1.0.0</p>
-    <h3>Auth Endpoint<a href="/auth/me">Access Profile</a></h3>
-    <h3>Authorized Team<a href="/teams/acme">Access Acme Team</a></h3>
-    <h3>Unauthorized Team<a href="/teams/other">Access Other Team (acess denied)</a></h3>
+    <h1>LoopBack / Keycloak Demo App</h1>
+    <h3>Sponsor<a href="https://www.shrinedev.com">Shrine Development</a></h3>
+    <div>
+      Test out the LoopBack and Keyclaok integration by using the links below. There are 3 usernames to try out.
+    </div>
+    <section>
+      <h4>Users list</h4>
+      <small>All passwords are <b>password</b></small>
+      <ul>
+        <li><b>admin</b> Admin user</li>
+        <li><b>username</b> A user that belongs to team <b>Acme</b></li>
+        <li><b>no_team_user</b> A user that doesn't belong to any teams</li>
+      </ul>
+      <b>Note:</b> To log out users go to Keylcloak Admin Dashboard > Users > User > Sessions > Log Out.
+    </section>
 
-    <h3>OpenAPI spec: <a href="/openapi.json">/openapi.json</a></h3>
-    <h3>API Explorer: <a href="/explorer">/explorer</a></h3>
+    <section>
+      <h4>Endpoints</h4>
+      <h4>Test Access <a href="/auth/me">Access User Profile</a></h4>
+      <h4>Test Authorized Team Access <a href="/teams/acme">Access Acme Team (forbidden for no_team_user)</a></h4>
+      <h4>Test Unauthorized Team Access  <a href="/teams/other">Access Other Team (always forbidden)</a></h4>
+    </section>
+
+
+    <section>
+        <h4>Loopback Endpoints</h4>
+        <h4>OpenAPI spec: <a href="/openapi.json">/openapi.json</a></h4>
+        <h4>API Explorer: <a href="/explorer">/explorer</a></h4>
+    </section>
+    
+  
   </div>
 
   <footer class="power">

@@ -12,7 +12,7 @@ export interface KeycloakClientConfig {
     'auth-server-url': string;
     "ssl-required": string,
     "resource": string,
-    "credentials": Credentials,
+    "credentials"?: Credentials,
     "use-resource-role-mappings": boolean,
     "confidential-port": number
 }

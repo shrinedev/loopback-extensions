@@ -3,7 +3,10 @@
   "users" : [ {
     "id" : "f7329203-f7bb-4509-854b-95f493f95452",
     "createdTimestamp" : 1529011982038,
-    "username" : "admin",
+    "username" : "username",
+    "firstName": "Doug",
+    "lastName": "D",
+    "email": "test@example.org",
     "enabled" : true,
     "totp" : false,
     "emailVerified" : false,
@@ -20,7 +23,36 @@
     } ],
     "disableableCredentialTypes" : [ "password" ],
     "requiredActions" : [ ],
-    "realmRoles" : [ "admin", "offline_access", "uma_authorization" ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
+    "clientRoles" : {
+      "account" : [ "manage-account", "view-profile" ]
+    },
+    "notBefore" : 0,
+    "groups" : [ "acme" ]
+  }, {
+    "id" : "f7329203-f7bb-4509-854b-95f493f95455",
+    "createdTimestamp" : 1529011982038,
+    "username" : "no_team_user",
+    "email": "noteam@example.org",
+    "firstName": "Lone",
+    "lastName": "Wolf",
+    "enabled" : true,
+    "totp" : false,
+    "emailVerified" : false,
+    "credentials" : [ {
+      "type" : "password",
+      "hashedSaltedValue" : "EGJ14cgjk392xckQO6ZIJXbBFknVCRT4PJO32Rq015r5UEl1w4OiY9gLYzgqdLY1gpjZWhkraBkRi5FaOElJcw==",
+      "salt" : "Qv0W3asckEj6fd80bMoyvQ==",
+      "hashIterations" : 27500,
+      "counter" : 0,
+      "algorithm" : "pbkdf2-sha256",
+      "digits" : 0,
+      "period" : 0,
+      "config" : { }
+    } ],
+    "disableableCredentialTypes" : [ "password" ],
+    "requiredActions" : [ ],
+    "realmRoles" : [ "offline_access", "uma_authorization" ],
     "clientRoles" : {
       "account" : [ "manage-account", "view-profile" ]
     },
