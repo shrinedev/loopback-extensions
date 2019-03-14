@@ -41,7 +41,9 @@ export class TeamGate implements Gate {
 
       // See if authorized
       if (!teams.find(t => t === team.name)) {
-        return reject(new HttpErrors.Forbidden('User not authorized to access this team'));
+        return reject(
+          new HttpErrors.Forbidden('User not authorized to access this team'),
+        );
       }
 
       this.setCurrentTeam(team);
