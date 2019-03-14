@@ -33,7 +33,8 @@ export class TeamGate implements Gate {
       console.log('teams and team name', user, teams, teamName);
 
       if (!teams) {
-        return reject(new HttpErrors.Forbidden('User has no teams'));
+        reject(new HttpErrors.Forbidden('User has no teams'));
+        return;
       }
 
       // Determine team id based off path
@@ -41,14 +42,14 @@ export class TeamGate implements Gate {
 
       // See if authorized
       if (!teams.find(t => t === team.name)) {
-        return reject(
+        reject(
           new HttpErrors.Forbidden('User not authorized to access this team'),
         );
       }
 
       this.setCurrentTeam(team);
 
-      return resolve(team);
+      resolve(team);
     });
   }
 }
