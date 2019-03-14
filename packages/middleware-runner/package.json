@@ -1,6 +1,6 @@
 {
   "name": "@shrinedev/middleware-runner",
-  "version": "0.0.3",
+  "version": "0.0.4",
   "description": "Run middleware without express. The lib runs middleware and returns a promise. Its intended use case is using express middleware in LoopBack.",
   "keywords": [
     "middleware",
