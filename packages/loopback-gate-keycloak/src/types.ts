@@ -9,13 +9,18 @@
  */
 import * as Keycloak from 'keycloak-connect';
 
+export interface KeycloakSettings {
+  attributes?: Array<string>
+}
 
 export interface UserProfile {
-    id: string;
-    name?: string;
-    email?: string;
-    teams?: Array<string>;
-  }
+  id: string;
+  name?: string;
+  email?: string;
+  teams?: Array<string>;
+
+  attributes?: {[key: string]: any};
+}
 
 export class KeycloakExtendedTokenContent implements Keycloak.TokenContent {
   exp: number;

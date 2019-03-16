@@ -6,7 +6,7 @@
 import { RequestHandler, Request, Response } from 'express';
 import { KeycloakClientConfig } from './keycloak-client-config';
 import { MiddlewareRunner } from '@shrinedev/middleware-runner';
-import { UserProfile, Keycloak, KeycloakExtendedTokenContent } from './types';
+import { UserProfile, Keycloak, KeycloakExtendedTokenContent, KeycloakSettings } from './types';
 import { CookieSessionStore } from './cookie-session-store';
 
 /**
@@ -15,6 +15,8 @@ import { CookieSessionStore } from './cookie-session-store';
  * Keycloak connect middleware but runs its in per request manner.
  */
 export class KeycloakClient {
+    static settings?: KeycloakSettings;
+
     keycloak: Keycloak;
 
     constructor(keycloakConfig: KeycloakClientConfig) {
@@ -45,6 +47,16 @@ export class KeycloakClient {
             name: `${tokenContent.given_name} ${tokenContent.family_name}`,
             teams: tokenContent.groups // Requires Keycloak server configured to provide groups via Group Membership Mapper
         };
+
+        if (KeycloakClient.settings && KeycloakClient.settings.attributes) {
+            user.attributes = {};
+            for (var i = 0; i < KeycloakClient.settings.attributes.length; i++) {
+                const key = KeycloakClient.settings.attributes[i];
+                if (tokenContent[key]) {
+                    user.attributes[key] = tokenContent[key];
+                }
+            }
+        }
 
         return next(null, user);
     }
