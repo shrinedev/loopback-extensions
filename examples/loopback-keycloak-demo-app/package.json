@@ -31,7 +31,7 @@
     "docker:run": "docker run -p 3000:3000 -d example-loopback-keycloak",
     "migrate": "node ./dist/migrate",
     "prestart": "npm run build",
-    "start": "node .",
+    "start": "COOKIE_SECRET=demoapp node .",
     "prepublishOnly": "npm run test"
   },
   "repository": {

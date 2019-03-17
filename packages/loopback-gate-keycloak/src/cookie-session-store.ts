@@ -9,7 +9,7 @@ const KEYCLOAK_STORAGE_COOKIE = 'keycloak_grant';
 export class CookieSessionStore {
 
     static middleware: Array<RequestHandler> = [cookieSession({
-        secret: "CHANGE_ME",
+        secret: process.env['COOKIE_SECRET'],
         name: 'keycloak',
         path: '/',
         httpOnly: true,
