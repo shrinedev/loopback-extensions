@@ -5,14 +5,18 @@
     "version": "0.2.0",
     "configurations": [
 
+
         {
             "type": "node",
             "request": "launch",
             "name": "Launch Keycloak Example",
-            "program": "${workspaceFolder}/examples/keycloak-gate/index.js",
+            "program": "${workspaceFolder}/examples/loopback-keycloak-demo-app/index.js",
             "outFiles": [
-                "${workspaceFolder}/examples/keycloak-gate/**/*.js"
-            ]
+                "${workspaceFolder}/examples/loopback-keycloak-demo-app/**/*.js"
+            ],
+            "env": {
+                "COOKIE_SECRET": "MYSECRET"
+            }
         }
     ]
 }
