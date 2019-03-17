@@ -26,7 +26,7 @@
   "homepage": "http://www.shrinedev.com",
   "license": "MIT",
   "dependencies": {
-    "@loopback/context": "1.6.0",
+    "@loopback/context": "1.7.0",
     "@loopback/core": "1.1.7",
     "@loopback/metadata": "1.0.7",
     "@loopback/openapi-v3": "1.2.2",
