@@ -1,6 +1,6 @@
 {
   "name": "@shrinedev/loopback-gate-keycloak",
-  "version": "0.0.7",
+  "version": "0.0.8",
   "description": "Keycloak LoopBack Controller Gate. ",
   "keywords": [
     "keycloak",
