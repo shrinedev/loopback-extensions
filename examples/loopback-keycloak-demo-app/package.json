@@ -54,7 +54,7 @@
     "@loopback/core": "1.1.7",
     "@loopback/openapi-v3": "1.2.2",
     "@loopback/repository": "1.1.6",
-    "@loopback/rest": "1.6.0",
+    "@loopback/rest": "1.7.0",
     "@loopback/rest-explorer": "1.1.9",
     "@loopback/service-proxy": "1.0.9",
     "@shrinedev/loopback-gate": "^0.0.3",
