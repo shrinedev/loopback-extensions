@@ -1,6 +1,6 @@
 {
   "name": "@shrinedev/loopback-keycloak-demo-app",
-  "version": "0.1.5",
+  "version": "0.2.0",
   "description": "Example Loopback App that integrates with Keycloak.",
   "keywords": [
     "loopback-application",
@@ -58,7 +58,7 @@
     "@loopback/rest-explorer": "1.1.9",
     "@loopback/service-proxy": "1.0.9",
     "@shrinedev/loopback-gate": "^0.1.0",
-    "@shrinedev/loopback-gate-keycloak": "^0.1.0"
+    "@shrinedev/loopback-gate-keycloak": "^0.2.0"
   },
   "devDependencies": {
     "@loopback/build": "1.3.1",
