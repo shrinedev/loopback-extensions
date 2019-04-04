@@ -31,7 +31,11 @@ export class KeycloakClient {
     }
 
     middlewares(): Array<RequestHandler> {
-        return this.keycloak.middleware() as unknown as Array<RequestHandler>;
+        // Specifying logout URL allows the application to setup a logout endpoint
+        // which will automatically revoke tokens and send a response to remove cookies.
+        return this.keycloak.middleware({
+            logout: '/logout'
+        }) as unknown as Array<RequestHandler>;
     }
 
     static getUser(request: Keycloak.GrantedRequest, response: Response, next: any) {
@@ -47,21 +51,6 @@ export class KeycloakClient {
             name: `${tokenContent.given_name} ${tokenContent.family_name}`,
             teams: tokenContent.groups // Requires Keycloak server configured to provide groups via Group Membership Mapper
         };
-
-        // const userAttributes = KeycloakClient.settings && KeycloakClient.settings.attributes;
-
-        // if (userAttributes) {
-        //     user.attributes = {};
-        //     for (var i = 0; i < userAttributes.length; i++) {
-
-        //         // Iterate through specified settings and assign to user
-        //         const key = userAttributes[i];
-        //         const value: any = tokenContent[key];
-        //         if (value) {
-        //             user.attributes[key] = value;
-        //         }
-        //     }
-        // }
 
         return next(null, user);
     }
