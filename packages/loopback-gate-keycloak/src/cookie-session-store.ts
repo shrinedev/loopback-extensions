@@ -10,7 +10,7 @@ export class CookieSessionStore {
 
     static middleware: Array<RequestHandler> = [cookieSession({
         secret: process.env['COOKIE_SECRET'],
-        name: 'keycloak',
+        name: KEYCLOAK_STORAGE_COOKIE,
         path: '/',
         httpOnly: true,
         secure: false,
@@ -35,9 +35,16 @@ export class CookieSessionStore {
         }
     }
 
+    static unstore(request: Request, response: Response) {
+        response.clearCookie(KEYCLOAK_STORAGE_COOKIE);
+    }
+
     wrap(grant: Keycloak.Grant) {
         if (grant) {
             grant.store = CookieSessionStore.store(grant);
+            // For some reason the Grant type does not list unstore as a property.
+            // @ts-ignore
+            grant.unstore = CookieSessionStore.unstore;
         }
     }
 

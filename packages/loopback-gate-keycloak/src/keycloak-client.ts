@@ -31,7 +31,11 @@ export class KeycloakClient {
     }
 
     middlewares(): Array<RequestHandler> {
-        return this.keycloak.middleware() as unknown as Array<RequestHandler>;
+        // Specifying logout URL allows the application to setup a logout endpoint
+        // which will automatically revoke tokens and send a response to remove cookies.
+        return this.keycloak.middleware({
+            logout: '/logout'
+        }) as unknown as Array<RequestHandler>;
     }
 
     static getUser(request: Keycloak.GrantedRequest, response: Response, next: any) {
