@@ -52,21 +52,6 @@ export class KeycloakClient {
             teams: tokenContent.groups // Requires Keycloak server configured to provide groups via Group Membership Mapper
         };
 
-        // const userAttributes = KeycloakClient.settings && KeycloakClient.settings.attributes;
-
-        // if (userAttributes) {
-        //     user.attributes = {};
-        //     for (var i = 0; i < userAttributes.length; i++) {
-
-        //         // Iterate through specified settings and assign to user
-        //         const key = userAttributes[i];
-        //         const value: any = tokenContent[key];
-        //         if (value) {
-        //             user.attributes[key] = value;
-        //         }
-        //     }
-        // }
-
         return next(null, user);
     }
 
