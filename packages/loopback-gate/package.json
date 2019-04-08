@@ -11,6 +11,7 @@
     "clean": "lb-clean loopback-gate*.tgz dist package api-docs",
     "integration": "lb-mocha \"dist/__tests__/integration/**/*.js\"",
     "pretest": "npm run build",
+    "prepare": "npm run build",
     "test": "lb-mocha \"dist/__tests__/unit/**/*.js\" \"dist/__tests__/integration/**/*.js\" \"dist/__tests__/acceptance/**/*.js\"",
     "unit": "lb-mocha \"dist/__tests__/unit/**/*.js\"",
     "verify": "npm pack && tar xf loopback-gate*.tgz && tree package && npm run clean"

@@ -1,6 +1,6 @@
 {
   "name": "@shrinedev/loopback-gate-keycloak",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Keycloak LoopBack Controller Gate. ",
   "keywords": [
     "keycloak",
@@ -31,6 +31,7 @@
     "clean": "lb-clean loopback-gate-keycloak*.tgz dist package api-docs",
     "integration": "lb-mocha \"dist/__tests__/integration/**/*.js\"",
     "pretest": "npm run build",
+    "prepare": "npm run build",
     "test": "lb-mocha \"dist/__tests__/unit/**/*.js\" \"dist/__tests__/integration/**/*.js\" \"dist/__tests__/acceptance/**/*.js\"",
     "unit": "lb-mocha \"dist/__tests__/unit/**/*.js\"",
     "verify": "npm pack && tar xf loopback-gate-keycloak*.tgz && tree package && npm run clean"
