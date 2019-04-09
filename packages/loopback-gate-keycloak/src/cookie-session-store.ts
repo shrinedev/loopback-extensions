@@ -12,6 +12,8 @@ export class CookieSessionStore {
         secret: process.env['COOKIE_SECRET'],
         name: KEYCLOAK_STORAGE_COOKIE,
         path: '/',
+        domain: '.herokuapp.com',
+        httpOnly: true,
         secure: false,
         maxAge: 3600000
       })];
