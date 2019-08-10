@@ -1,21 +1,14 @@
-import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
-import {
-  RestExplorerBindings,
-  RestExplorerComponent,
-} from '@loopback/rest-explorer';
-import {RepositoryMixin} from '@loopback/repository';
-import {RestApplication} from '@loopback/rest';
-import {ServiceMixin} from '@loopback/service-proxy';
+import { BootMixin } from '@loopback/boot';
+import { ApplicationConfig, Binding } from '@loopback/core';
+import { RepositoryMixin } from '@loopback/repository';
+import { RestApplication } from '@loopback/rest';
+import { RestExplorerBindings, RestExplorerComponent } from '@loopback/rest-explorer';
+import { ServiceMixin } from '@loopback/service-proxy';
+import { GateComponent, LogGate } from '@shrinedev/loopback-gate';
+import { KeycloakBindings, KeycloakClient, KeycloakGate } from '@shrinedev/loopback-gate-keycloak';
 import * as path from 'path';
-import {MySequence} from './sequence';
-import {GateComponent, LogGate} from '@shrinedev/loopback-gate';
-import {
-  KeycloakGate,
-  KeycloakClient,
-  KeycloakBindings,
-} from '@shrinedev/loopback-gate-keycloak';
-import {TeamGate} from './gates/team.gate';
+import { TeamGate } from './gates/team.gate';
+import { MySequence } from './sequence';
 
 const exportedKeycloakClientConfig = {
   realm: 'master',
@@ -48,7 +41,7 @@ export class ShrineApplication extends BootMixin(
     this.component(GateComponent);
 
     GateComponent.createBindings(KeycloakGate, LogGate, TeamGate).forEach(
-      binding => this.add(binding),
+      (binding: Binding) => this.add(binding),
     );
 
     // For Keycloak Gate we need provide an instance of the client

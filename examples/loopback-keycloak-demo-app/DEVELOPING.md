@@ -7,7 +7,7 @@ users.
 
 Install the following extensions:
 
- - [tslint](https://marketplace.visualstudio.com/items?itemName=eg2.tslint)
+ - [eslint](https://marketplace.visualstudio.com/items?itemName=dbaeumer.vscode-eslint)
  - [prettier](https://marketplace.visualstudio.com/items?itemName=esbenp.prettier-vscode)
 
 ## Development workflow
@@ -34,3 +34,4 @@ Install the following extensions:
    suite and lint the code for both programming and style errors. You should run
    this command manually whenever you have new changes to test. Test failures
    and linter errors will be printed to the terminal.
+

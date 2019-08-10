@@ -1,18 +1,6 @@
-import {inject, BindingKey} from '@loopback/context';
-import {
-  FindRoute,
-  InvokeMethod,
-  ParseParams,
-  Reject,
-  RequestContext,
-  RestBindings,
-  Send,
-  SequenceHandler,
-  StaticAssetsRoute,
-  ResolvedRoute,
-} from '@loopback/rest';
-
-import {GateBindings, GateRequestFn} from '@shrinedev/loopback-gate';
+import { BindingKey, inject } from '@loopback/context';
+import { FindRoute, InvokeMethod, ParseParams, Reject, RequestContext, ResolvedRoute, RestBindings, Send, SequenceHandler } from '@loopback/rest';
+import { GateBindings, GateRequestFn } from '@shrinedev/loopback-gate';
 
 const SequenceActions = RestBindings.SequenceActions;
 
@@ -27,11 +15,11 @@ export class MySequence implements SequenceHandler {
     @inject(SequenceActions.REJECT) public reject: Reject,
     @inject(GateBindings.GATE_ACTION_PROVIDER)
     public gate: GateRequestFn,
-  ) {}
+  ) { }
 
   async handle(context: RequestContext) {
     try {
-      const {request, response} = context;
+      const { request, response } = context;
       const route = this.findRoute(request);
       const args = await this.parseParams(request, route);
 
@@ -39,9 +27,10 @@ export class MySequence implements SequenceHandler {
       context.bind(ROUTE_BINDING).to(route);
 
       // !!IMPORTANT: gates fail on static routes!
-      if (!(route instanceof StaticAssetsRoute)) {
-        await this.gate(context, request);
-      }
+      // TODO
+      // if (!(route instanceof StaticAssetsRoute)) {
+      //   await this.gate(context, request);
+      // }
 
       const result = await this.invoke(route, args);
       this.send(response, result);
