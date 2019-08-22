@@ -27,7 +27,7 @@
   "scripts": {
     "acceptance": "lb-mocha \"dist/__tests__/acceptance/**/*.js\"",
     "build:apidocs": "lb-apidocs",
-    "build": "lb-tsc es2017 --outDir dist",
+    "build": "lb-tsc --outDir dist",
     "clean": "lb-clean loopback-gate-keycloak*.tgz dist package api-docs",
     "integration": "lb-mocha \"dist/__tests__/integration/**/*.js\"",
     "pretest": "npm run build",
@@ -37,16 +37,16 @@
     "verify": "npm pack && tar xf loopback-gate-keycloak*.tgz && tree package && npm run clean"
   },
   "dependencies": {
-    "@loopback/rest": "1.7.0",
-    "@shrinedev/loopback-gate": "^0.1.0",
+    "@loopback/rest": "1.17.0",
+    "@shrinedev/loopback-gate": "0.1.0",
     "@shrinedev/middleware-runner": "^0.0.4",
     "cookie-session": "1.3.3",
     "keycloak-connect": "4.8.3"
   },
   "devDependencies": {
-    "@loopback/build": "1.3.1",
-    "@loopback/testlab": "1.0.7",
-    "@loopback/tslint-config": "2.0.1",
+    "@loopback/build": "2.0.8",
+    "@loopback/testlab": "1.7.4",
+    "@loopback/tslint-config": "2.1.0",
     "@types/cookie-session": "2.0.36",
     "@types/keycloak-connect": "4.5.1",
     "tslint": "5.12.0",
