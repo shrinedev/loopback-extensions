@@ -1,3 +1,8 @@
+## ⛔️ DEPRECATED - These packages are no longer needed, use [loopback interceptors](https://loopback.io/doc/en/lb4/Interceptors.html) directly instead.
+
+## See starter project at https://github.com/shrinedev/loopback-starter for an example on protecting loopback endpoints with keycloak-connect middleware.
+
+
 ## LoopBack Extensions
 
 Packages and components for Loopback 4.
