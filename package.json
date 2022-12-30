@@ -3,7 +3,7 @@
   "private": true,
   "devDependencies": {
     "lerna": "3.13.1",
-    "@loopback/build": "2.0.8",
+    "@loopback/build": "9.0.6",
     "@loopback/testlab": "1.7.4",
     "@loopback/tslint-config": "2.1.0",
     "@types/node": "10.11.2",

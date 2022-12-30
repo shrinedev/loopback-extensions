@@ -30,7 +30,7 @@
     "q": "1.5.1"
   },
   "devDependencies": {
-    "@loopback/build": "2.0.8",
+    "@loopback/build": "9.0.6",
     "@loopback/testlab": "1.7.4",
     "@loopback/tslint-config": "2.1.0",
     "@types/jsonwebtoken": "8.3.0",
